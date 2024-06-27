@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.snake-seg {
+    background-color: white;
+    border: 1px solid black;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 1px;
+}
+
+.playground {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background-color: black;
+}
