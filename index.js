@@ -1,55 +1,57 @@
 import { Snake } from "./classes/snake.js";
 import Food from "./classes/food.js";
 
-const SPEED = 800;
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 600;
-const OFFSET = 15;
+const canvas = document.getElementById("root");
+const snake = new Snake();
+const food = new Food();
+const SPEED = 100;
+const BORDER = {min: 0, max: 50};
 
 
-function restartGame(canvas, snake, food) {
+function restart() {
     snake.body.forEach(part => {
-        canvas.removeChild(part.box);
+        canvas.removeChild(part.element);
+    })
+}
+
+function place(item) {
+    item.element.style.gridColumn = item.x;
+    item.element.style.gridRow = item.y;
+    canvas.appendChild(item.element);
+}
+
+function draw() {
+    canvas.innerHTML = "";
+    snake.body.forEach(part => {
+        place(part);
     });
-    snake.toStart(canvas);
-    food.respawn();
+    place(food)
 }
 
-function initGame() {
-    const canvas = document.getElementById("root");
-    const snake = new Snake();
-    const food = new Food();
-    snake.toStart(canvas);
-    canvas.appendChild(food.element);
-
-    return {canvas, snake, food};
+function outOfBounds(head) {
+    return head.x < BORDER.min || head.x >  BORDER.max || head.y < BORDER.min || head.y >  BORDER.max; 
 }
 
-function checkIfOutOfBounds(head) {
-    let headPos = head.position();
-    if (headPos.x < 5 || headPos.x > 575 || headPos.y < 5 || headPos.y > 575) {
-        console.log("Out of bounds");
-        return true;
+function foodColission(head, food) {
+    return head.x == food.x && head.y == food.y;
+}
+
+setInterval(() => {
+    snake.move();
+    if (outOfBounds(snake.head)) {
+        restart();
+        snake.reset();
+        food.respawn();
+    } 
+    if (foodColission(snake.head, food)) {
+        // snake.eat();
+        food.respawn();
     }
-}
+    draw();
+}, SPEED);
 
-function checkCollisionWithFood(head, food) {
-    const distance = head.distance(food.position());
-    console.log(distance);
-    if (distance.x < OFFSET && distance.y < OFFSET) {
-        console.log("collision with food");
-        return true;
+window.addEventListener("keydown", (e) => {
+    if (['w','s','a','d'].includes(e.key)) {
+        snake.head.changeHeading(e.key);
     }
-}
-
-function game() {
-
-}
-
-
-window.addEventListener('load', () => {
-    const {canvas, snake, food} = initGame();
-    let isPaused = false;
-
-    
-});
+})

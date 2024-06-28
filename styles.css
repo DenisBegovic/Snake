@@ -13,26 +13,30 @@ body {
 }
 
 .snake-seg {
-    background-color: white;
-    width: 20px;
-    height: 20px;
+    background-color: rgb(0, 0, 0);
+    border: 1px solid rgb(255, 255, 255);
+    width: 14px;
+    height: 14px;
     position: relative;
     display: block;
 }
 
 .playground {
     display: grid;
-    grid-template-columns: repeat(30, var(--square-size));
-    grid-template-rows: repeat(30, var(--square-size));
-    width: 600px;
-    height: 600px;
-    background-color: black;
+    border: 3px solid black;
+    grid-template-columns: repeat(50, 15px);
+    grid-template-rows: repeat(50, 15px);
+    width: 750px;
+    height: 750px;
+    background-color: rgba(12, 65, 20, 0.743);
 }
 
 .food {
     background-color: red;
-    position: relative;
+    justify-self: center;
+    align-self: center;
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    border: 1px solid black;
 }
