@@ -99,8 +99,27 @@ export class Snake {
         return {x: part.x, y: part.y};
     }
 
+    eat() {
+        let {x, y} = this.position(this.body[this.body.length - 1]);
+        this.body.push(new BodyPart(this.body.length, x, y));
+    }
+
     reset() {
         this.body = this.createStartingBody();
         this.head = this.body[0];
+    }
+
+    distance(part) {
+        return {x: this.head.x - part.x, y: this.head.y - part.y}
+    }
+
+    hitsItSelf() {
+        for (let i = 1; i < this.body.length; i++) {
+            let {x, y} = this.distance(this.body[i]);
+            if (x == 0 && y == 0) {
+                return true;
+            }
+            return false;
+        }
     }
 }

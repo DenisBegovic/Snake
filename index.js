@@ -4,7 +4,7 @@ import Food from "./classes/food.js";
 const canvas = document.getElementById("root");
 const snake = new Snake();
 const food = new Food();
-const SPEED = 100;
+const SPEED = 75;
 const BORDER = {min: 0, max: 50};
 
 
@@ -38,16 +38,16 @@ function foodColission(head, food) {
 
 setInterval(() => {
     snake.move();
-    if (outOfBounds(snake.head)) {
+    draw();
+    if (outOfBounds(snake.head) || snake.hitsItSelf()) {
         restart();
         snake.reset();
         food.respawn();
     } 
     if (foodColission(snake.head, food)) {
-        // snake.eat();
+        snake.eat();
         food.respawn();
     }
-    draw();
 }, SPEED);
 
 window.addEventListener("keydown", (e) => {
