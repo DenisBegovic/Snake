@@ -8,11 +8,10 @@ body {
 
 .snake-seg {
     background-color: white;
-    border: 1px solid black;
     width: 20px;
     height: 20px;
     position: relative;
-    top: 1px;
+    display: block;
 }
 
 .playground {

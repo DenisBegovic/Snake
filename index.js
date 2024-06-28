@@ -1,15 +1,20 @@
-const playground = document.getElementById("root");
+import { Snake, SnakeSegment } from "./classes/snake.js";
+const SPEED = 1000;
 
-const width = playground.clientWidth;
-const height = playground.clientHeight;
-const start = {
-    x: width / 2,
-    y: height / 2
-}
-console.log(start);
+window.addEventListener('load', () => {
+    const canvas = document.getElementById("root");
+    const snake = new Snake();
+    for (let i = 0; i < snake.body.length; i++) {
+        let part = snake.body[i];
+        canvas.appendChild(part.box);
+    }
 
-const snakeSeg = document.createElement("div");
-snakeSeg.className = "snake-seg";
+    const interval = setInterval(() => {
+        snake.move();
+    }, SPEED);
 
-
-playground.appendChild(snakeSeg);
+    document.addEventListener("keypress", (e) => {
+        console.log(e.key);
+        snake.head.changeHeading(e.key);
+    });
+}) 
