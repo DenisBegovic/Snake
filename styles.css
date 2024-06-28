@@ -1,3 +1,8 @@
+:root {
+    --square-size: 20px;
+    --canvas-size: 600px;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -16,7 +21,9 @@ body {
 }
 
 .playground {
-    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(30, var(--square-size));
+    grid-template-rows: repeat(30, var(--square-size));
     width: 600px;
     height: 600px;
     background-color: black;

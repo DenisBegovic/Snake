@@ -47,33 +47,9 @@ function game() {
 }
 
 
-
-
 window.addEventListener('load', () => {
     const {canvas, snake, food} = initGame();
     let isPaused = false;
 
-    const interval = setInterval(() => {
-        if (!isPaused) {
-            snake.move();
-            if (snake.checkColisionToBody() || checkIfOutOfBounds(snake.head)) {
-                restartGame(canvas, snake, food);
-            }
-            if (checkCollisionWithFood(snake.head, food)) {
-                snake.eat(canvas);
-            }
-        }}, SPEED);
-
-
-    document.addEventListener("keypress", (e) => {
-        e.preventDefault();
-        console.log(e.key);
-        const inputs = ["a", 's', 'd', 'w'];
-        if (inputs.includes(e.key)) {
-            snake.head.changeHeading(e.key);
-        } 
-        if (e.key === "Tab") {  
-            isPaused = !isPaused;
-        }
-    }) 
+    
 });
