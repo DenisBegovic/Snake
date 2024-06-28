@@ -1,15 +1,15 @@
+const STEP = 15;
+
 export class SnakeSegment {
     constructor(id, x ,y) {
         this.box = document.createElement("div");
         this.box.className = "snake-seg";
-        this.id = id
         this.box.id = id;
-        this.width = 20
+        this.width = 20;
 
         this.x = x;
-        this.y = y - this.width * this.id;
+        this.y = y - this.width * id;
         this.heading = "right";
-        this.step = 20;
 
         this.box.style.top = `${this.y}px`;
         this.box.style.left = `${this.x}px`;
@@ -31,19 +31,19 @@ export class SnakeSegment {
     updatePosition() {
         switch(this.heading) {
             case "up":
-                this.y -= this.step;
+                this.y -= STEP;
                 break;
 
             case "down":
-                this.y += this.step;
+                this.y += STEP;
                 break;
 
             case "left":
-                this.x -= this.step;
+                this.x -= STEP;
                 break;
 
             case "right":
-                this.x += this.step;
+                this.x += STEP;
                 break;
         }
     }
@@ -79,15 +79,34 @@ export class SnakeSegment {
                 break;
         }
     }
- 
+    
+    distance({x, y}) {
+        return {x: Math.abs(this.x - x), y: Math.abs(this.y - y)};
+    }
 }
 
 export class Snake {
     constructor() {
-        this.body = [new SnakeSegment(0, 290, 290), new SnakeSegment(1, 290, 290), new SnakeSegment(2, 290, 290)];
+        this.body = [...this.createStartingBody()];
         this.head = this.body[0];
     }
 
+    createStartingBody() {
+        let smallSnake = [];
+        for (let i = 0; i < 3; i++) {
+            smallSnake.push(new SnakeSegment(i, 290, 290));
+        }
+        return smallSnake;
+    }
+
+    eat() {
+        console.log("Snake ate");
+        let newId = this.body.length;
+        let position = this.body[newId - 1].position();
+        let newPart = new SnakeSegment(newId, position.x, position.y);
+        this.body.push(newPart);
+    }
+    
     move() {
         let positions = [];
         for (let i = 0; i < this.body.length; i++) {
@@ -98,6 +117,24 @@ export class Snake {
                 this.body[i].goto(positions[i - 1]);
             }
         }
+    }
+
+    checkColisionToBody() {
+        for (let i = 1; i < this.body.length; i++) {
+            let distance = this.head.distance(this.body[i].position())
+            if(distance.x < STEP && distance.y < STEP) {
+                console.log("Collision with body");
+                return true;
+            }
+        }
+    }
+
+    toStart(canvas) {
+        this.body = [...this.createStartingBody()];
+        this.body.forEach(part => {
+            canvas.appendChild(part.box);
+        });
+        this.head = this.body[0];
     }
 }
 

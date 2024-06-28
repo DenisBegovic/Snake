@@ -4,6 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .snake-seg {
@@ -19,4 +20,12 @@ body {
     width: 600px;
     height: 600px;
     background-color: black;
+}
+
+.food {
+    background-color: red;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
