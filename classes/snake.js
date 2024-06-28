@@ -1,4 +1,4 @@
-const STEP = 15;
+const STEP = 25;
 
 export class SnakeSegment {
     constructor(id, x ,y) {
@@ -87,7 +87,7 @@ export class SnakeSegment {
 
 export class Snake {
     constructor() {
-        this.body = [...this.createStartingBody()];
+        this.body = this.createStartingBody();
         this.head = this.body[0];
     }
 
@@ -96,15 +96,20 @@ export class Snake {
         for (let i = 0; i < 3; i++) {
             smallSnake.push(new SnakeSegment(i, 290, 290));
         }
+        console.log(smallSnake);
         return smallSnake;
     }
 
-    eat() {
+    eat(canvas) {
         console.log("Snake ate");
         let newId = this.body.length;
         let position = this.body[newId - 1].position();
-        let newPart = new SnakeSegment(newId, position.x, position.y);
-        this.body.push(newPart);
+        console.log("New segment added at position:");
+        console.log(position)
+        let newBodyPart = new SnakeSegment(newId, position.x, position.y);
+        this.body.push(newBodyPart);
+        canvas.appendChild(newBodyPart.box);
+        console.log(this.body);
     }
     
     move() {

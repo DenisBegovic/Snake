@@ -1,10 +1,10 @@
 import { Snake } from "./classes/snake.js";
 import Food from "./classes/food.js";
 
-const SPEED = 10000;
+const SPEED = 800;
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 600;
-const OFFSET = 10;
+const OFFSET = 15;
 
 
 function restartGame(canvas, snake, food) {
@@ -35,7 +35,6 @@ function checkIfOutOfBounds(head) {
 
 function checkCollisionWithFood(head, food) {
     const distance = head.distance(food.position());
-    console.log(`Distance form food is`);
     console.log(distance);
     if (distance.x < OFFSET && distance.y < OFFSET) {
         console.log("collision with food");
@@ -61,7 +60,7 @@ window.addEventListener('load', () => {
                 restartGame(canvas, snake, food);
             }
             if (checkCollisionWithFood(snake.head, food)) {
-                snake.eat();
+                snake.eat(canvas);
             }
         }}, SPEED);
 
