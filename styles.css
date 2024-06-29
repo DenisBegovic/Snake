@@ -32,6 +32,11 @@ body {
     text-align: center;
 }
 
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
 .food {
     background-color: red;
     justify-self: center;
@@ -40,4 +45,11 @@ body {
     height: 10px;
     border-radius: 50%;
     border: 1px solid black;
+}
+
+.score {
+    align-self: end;
+    margin-right: 50px;
+    font-size: large;
+    margin-bottom: 1rem;
 }

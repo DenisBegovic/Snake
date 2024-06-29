@@ -1,18 +1,21 @@
 import { Snake } from "./components/snake.js";
 import Food from "./components/food.js";
 import { SPEED, BORDER, canvasSize, squareSize, gridCol, gridRow, CENTER } from "./components/game.js";
-import {pauseOverlay} from "./components/ui.js";
+import {pauseOverlay, Score} from "./components/ui.js";
+
 
 const canvas = document.getElementById("root");
+const pauseH2 = document.getElementById("pause");
+const scoreElement = document.getElementById("score");
+
 canvas.style.gridTemplateColumns = `repeat(${gridCol}, ${squareSize}px)`;
 canvas.style.gridTemplateRows = `repeat(${gridRow}, ${squareSize}px)`;
 canvas.style.width = `${canvasSize}px`;
 canvas.style.height = `${canvasSize}px`;
-const pauseH2 = document.getElementById("pause");
-
 
 const snake = new Snake();
 const food = new Food();
+const score = new Score();
 let isPaused = false;
 
 function restart() {
@@ -40,7 +43,7 @@ function outOfBounds(head) {
 }
 
 function foodColission(head, food) {
-    return head.x == food.x && head.y == food.y;
+    return head.x - food.x === 0 && head.y - food.y === 0;
 }
 
 const interval = setInterval(() => {
@@ -51,10 +54,12 @@ const interval = setInterval(() => {
             restart();
             snake.reset();
             food.respawn();
+            score.reset(scoreElement)
         } 
         if (foodColission(snake.head, food)) {
             snake.eat();
             food.respawn();
+            score.add(scoreElement);
         }
     }
 }, SPEED);
@@ -67,6 +72,6 @@ window.addEventListener("keydown", (e) => {
     if (e.key === "Tab") {
         isPaused = !isPaused;
         console.log(pauseH2);
-        pauseOverlay(pauseH2,canvas, isPaused)
+        pauseOverlay(pauseH2,canvas, isPaused);
     }
 })
