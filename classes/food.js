@@ -1,5 +1,4 @@
-const BORDER = {min: 0, max: 50};
-
+import { BORDER } from "../game.js";
 
 export default class Food {
     constructor() {

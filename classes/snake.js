@@ -1,10 +1,13 @@
-const CENTER = {x: 25, y: 25};
+import {squareSize, CENTER} from "../game.js"
 
 export class BodyPart {
     constructor(id, x, y) {
         this.element = document.createElement("div");
         this.element.id = id;
         this.element.className = "snake-seg";
+        this.element.style.width = `${squareSize - 1}px`;
+        this.element.style.height = `${squareSize - 1}px`;
+
 
         this.x = x;
         this.y = y;
@@ -78,7 +81,7 @@ export class Snake {
     createStartingBody() {
         let body = [];
         for (let i = 0; i < 3; i++) {
-            body.push(new BodyPart(i, CENTER.x - i, CENTER.y))
+            body.push(new BodyPart(i, CENTER.x - i, CENTER.y));
         }
         return body;
     }
