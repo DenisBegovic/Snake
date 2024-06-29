@@ -1,12 +1,14 @@
-import { Snake } from "./classes/snake.js";
-import Food from "./classes/food.js";
-import { SPEED, BORDER, canvasSize, squareSize, gridCol, gridRow, CENTER } from "./game.js";
+import { Snake } from "./components/snake.js";
+import Food from "./components/food.js";
+import { SPEED, BORDER, canvasSize, squareSize, gridCol, gridRow, CENTER } from "./components/game.js";
+import {pauseOverlay} from "./components/ui.js";
 
 const canvas = document.getElementById("root");
 canvas.style.gridTemplateColumns = `repeat(${gridCol}, ${squareSize}px)`;
 canvas.style.gridTemplateRows = `repeat(${gridRow}, ${squareSize}px)`;
 canvas.style.width = `${canvasSize}px`;
-canvas.style.height = `${canvasSize}px`
+canvas.style.height = `${canvasSize}px`;
+const pauseH2 = document.getElementById("pause");
 
 
 const snake = new Snake();
@@ -64,5 +66,7 @@ window.addEventListener("keydown", (e) => {
     }
     if (e.key === "Tab") {
         isPaused = !isPaused;
+        console.log(pauseH2);
+        pauseOverlay(pauseH2,canvas, isPaused)
     }
 })

@@ -1,4 +1,4 @@
-import { BORDER } from "../game.js";
+import { BORDER } from "./game.js";
 
 export default class Food {
     constructor() {

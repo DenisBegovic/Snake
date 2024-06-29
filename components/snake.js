@@ -1,4 +1,4 @@
-import {squareSize, CENTER} from "../game.js"
+import {squareSize, CENTER} from "./game.js"
 
 export class BodyPart {
     constructor(id, x, y) {
