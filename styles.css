@@ -30,6 +30,9 @@ body {
     grid-column: 15;
     grid-row: 5;
     text-align: center;
+    color: white;
+    font-weight: 800;
+    z-index: 2;
 }
 
 .main {
